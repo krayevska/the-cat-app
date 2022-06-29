@@ -1,0 +1,16 @@
+mat-grid-tile {
+  height: auto;
+}
+/* 
+mat-grid-list {
+  border: 1px solid orange;
+} */
+
+img {
+  max-height: 250px;
+  width: auto;
+}
+
+.mat-select-panel {
+  width: 50px;
+}
