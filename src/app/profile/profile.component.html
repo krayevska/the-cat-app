@@ -3,7 +3,7 @@
     <img src="{{ cat.url }}" />
   </div>
 
-  <div *ngIf="doesItHaveBreed()">
+  <div *ngIf="hasBreed()">
     <div class="breeds-data" *ngFor="let breed of cat.breeds">
       <p>Breed: {{ breed.name }}</p>
     </div>
