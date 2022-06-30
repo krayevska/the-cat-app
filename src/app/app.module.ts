@@ -15,7 +15,9 @@ import { FilterComponent } from './filter/filter.component';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { catReducer } from './cat.reducer';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { ProfileComponent } from './profile/profile.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { Routes } from '@angular/router';
     HeaderComponent,
     MainComponent,
     FilterComponent,
+    ProfileComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

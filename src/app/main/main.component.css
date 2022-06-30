@@ -11,10 +11,29 @@ img {
   width: auto;
 }
 
+img:hover {
+  cursor: pointer;
+  outline: 0.1rem solid;
+}
+
 .mat-select-panel {
   width: 50px;
 }
 
 .mat-paginator-container {
   height: 20px;
+}
+
+@media only screen and (max-width: 1200px) {
+  img {
+    max-height: 200px;
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  img {
+    max-height: 150px;
+    width: auto;
+  }
 }

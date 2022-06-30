@@ -13,7 +13,6 @@ mat-select {
   align-items: center;
   flex-direction: row;
   gap: 20px;
-  /* border: 2px solid red; */
   margin: 150px 0 30px 0;
   border-radius: 3px;
   font-size: 16px;
@@ -24,6 +23,11 @@ button {
   height: 35px;
   border-radius: 3px;
   font-size: 16px;
+}
+
+button:hover {
+  cursor: pointer;
+  outline: 0.01rem solid;
 }
 
 input {
@@ -71,6 +75,7 @@ p {
     align-items: center;
     flex-direction: column;
     gap: 15px;
+    margin: 25px;
   }
 
   .filters {

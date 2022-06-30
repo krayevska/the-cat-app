@@ -1,0 +1,15 @@
+<div class="profile-section">
+  <div>
+    <img src="{{ catImgUrl }}" />
+  </div>
+
+  <div *ngIf="doesItHaveBreed()">
+    <div class="breeds-data" *ngFor="let breed of breeds">
+      <p>Breed: {{ breed }}</p>
+    </div>
+  </div>
+
+  <div class="go-back">
+    <button (click)="goBack()">Go back</button>
+  </div>
+</div>

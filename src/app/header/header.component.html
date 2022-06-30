@@ -1,13 +1,11 @@
 <header class="header">
   <div class="logo-name">
-    <!-- <img
-      class="logo"
-      src="assets/images/black-evil-cat.png"
-      alt="black-cat-image"
-    /> -->
     <h2 class="header-app-name">The Cat App</h2>
   </div>
   <p class="header-description">
     Test assignment for ITEAM Front-End Developer Angular2+ position
   </p>
+  <div *ngIf="showAboutButton()" class="about">
+    <button mat-button (click)="getToAboutPage()" class="about">About</button>
+  </div>
 </header>

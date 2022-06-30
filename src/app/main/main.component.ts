@@ -5,6 +5,7 @@ import { Cat } from '../model/interfaces';
 import { saveCats, setCatsFree } from '../cat.actions';
 import { Store } from '@ngrx/store';
 import { CatsService } from '../cats.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -22,23 +23,25 @@ export class MainComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private store: Store<{ catsState: Cat[] }>,
-    private catsService: CatsService
+    private catsService: CatsService,
+    private router: Router
   ) {
     this.catsState$ = store.select('catsState');
   }
 
   ngOnInit(): void {
-    console.log('showAllMode ', this.showAllMode);
-    console.log('ON INIT');
     this.catsState$.subscribe((data: Cat[] | []) => {
-      console.log('DATA FROM STORE ', data);
       this.cats = data;
-      this.showAllMode = data.length > 0 ? true : false;
+      this.showAllMode = data.length > 1 ? true : false;
     });
   }
 
   public handlePageEvent(e): void {
     this.pageNum = e.pageIndex;
     this.catsService.setPage(this.pageNum);
+  }
+
+  public onCatClick(id: string): void {
+    this.router.navigateByUrl('/profile/' + id);
   }
 }

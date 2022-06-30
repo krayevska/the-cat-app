@@ -13,7 +13,7 @@
 
   <mat-grid-list cols="2" rowHeight="2:1">
     <mat-grid-tile *ngFor="let cat of cats">
-      <img src="{{ cat.url }}" layout-fill />
+      <img src="{{ cat.url }}" layout-fill (click)="onCatClick(cat.id)" />
     </mat-grid-tile>
   </mat-grid-list>
   <div *ngIf="showAllMode">
