@@ -1,4 +1,4 @@
-<div class="filters-section">
+<div class="filters-section" [ngClass]="{ catsAreHere: areCatsHere }">
   <div class="show-all">
     <button mat-button (click)="setPattern('all')" class="button-show-all">
       Show all Cats
@@ -19,10 +19,7 @@
   </div>
   <p>or choose from list of breeds</p>
   <div class="select">
-    <mat-select
-      placeholder="Choose the breed"
-      (selectionChange)="setPattern($event.value)"
-    >
+    <mat-select (selectionChange)="setPattern($event.value)">
       <mat-option *ngFor="let breed of breedsList" [value]="breed.name">
         {{ breed.name }}
       </mat-option>

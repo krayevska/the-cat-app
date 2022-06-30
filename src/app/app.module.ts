@@ -13,6 +13,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { FilterComponent } from './filter/filter.component';
 import { FormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { catReducer } from './cat.reducer';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { FormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatSelectModule,
     FormsModule,
+    StoreModule.forRoot({ catsState: catReducer }),
   ],
   providers: [],
   bootstrap: [AppComponent],

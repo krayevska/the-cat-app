@@ -11,6 +11,7 @@ import { Output, EventEmitter } from '@angular/core';
 export class FilterComponent implements OnInit {
   public breedsList: any;
   public patternFromInput: string;
+  public areCatsHere = false;
 
   @Output() pattern = new EventEmitter<String[]>();
 
@@ -21,12 +22,11 @@ export class FilterComponent implements OnInit {
   }
 
   public setPattern(pattern: string): void {
+    this.areCatsHere = true;
     if (pattern !== 'all') {
       const breedInfo = this.breedsList.find((breed) => breed.name === pattern);
       this.pattern.emit([breedInfo.id, 'select']);
-      console.log('breedInfo ', breedInfo);
     } else {
-      console.log('pattern ', pattern);
       this.pattern.emit([pattern, 'all']);
     }
   }
@@ -40,6 +40,7 @@ export class FilterComponent implements OnInit {
   }
 
   public inputPattern(): void {
+    this.areCatsHere = true;
     this.pattern.emit([this.patternFromInput, 'name']);
   }
 

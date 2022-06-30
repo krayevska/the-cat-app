@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Cat } from '../model/interfaces';
+import { saveCats, setCatsFree } from '../cat.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-main',
@@ -14,10 +16,20 @@ export class MainComponent implements OnInit {
   public pageNum = 0;
   public showAllMode: boolean;
 
-  constructor(private http: HttpClient) {}
+  catsState$: Observable<Cat[]>;
+
+  constructor(
+    private http: HttpClient,
+    private store: Store<{ catsState: Cat[] }>
+  ) {
+    this.catsState$ = store.select('catsState');
+  }
 
   ngOnInit(): void {
     console.log('ON INIT');
+    this.catsState$.subscribe((data: Cat[] | []) => {
+      console.log('DATA FROM STORE ', data);
+    });
   }
 
   public handlePageEvent(e): void {
@@ -63,12 +75,14 @@ export class MainComponent implements OnInit {
       this.getAllCats().subscribe((data: Cat[]) => {
         console.log('DATA ALL', data);
         this.cats = data;
+        this.onSaveCats(this.cats);
       });
       this.showAllMode = true;
     } else if (pattern[1] === 'select') {
       this.showAllMode = false;
       this.getCatsBySelectedBreed(pattern[0]).subscribe((data: Cat[]) => {
         this.cats = data;
+        this.onSaveCats(this.cats);
       });
     } else {
       this.showAllMode = false;
@@ -79,6 +93,7 @@ export class MainComponent implements OnInit {
         this.getCatsBySelectedBreed(data[0].id).subscribe((data: Cat[]) => {
           console.log('DATA INPUT CATS ', data);
           this.cats = data;
+          this.onSaveCats(this.cats);
         });
       });
     }
@@ -90,5 +105,9 @@ export class MainComponent implements OnInit {
         .split(',')
         .map((str) => +str);
     }
+  }
+
+  onSaveCats(cats: Cat[]) {
+    this.store.dispatch(saveCats({ cats }));
   }
 }
