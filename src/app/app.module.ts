@@ -15,6 +15,7 @@ import { FilterComponent } from './filter/filter.component';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { catReducer } from './cat.reducer';
+import { Routes } from '@angular/router';
 
 @NgModule({
   declarations: [

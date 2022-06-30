@@ -1,5 +1,5 @@
 mat-grid-tile {
-  height: auto;
+  height: 70px;
 }
 
 .main {
@@ -7,10 +7,14 @@ mat-grid-tile {
 }
 
 img {
-  max-height: 250px;
+  max-height: 270px;
   width: auto;
 }
 
 .mat-select-panel {
   width: 50px;
+}
+
+.mat-paginator-container {
+  height: 20px;
 }

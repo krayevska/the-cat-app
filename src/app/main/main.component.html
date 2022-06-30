@@ -1,4 +1,5 @@
-<app-filter (pattern)="showCats($event)"></app-filter>
+<!-- <app-filter (pattern)="showCats($event)"></app-filter> -->
+<app-filter [pageNumber]="pageNum"></app-filter>
 <div class="main">
   <div *ngIf="showAllMode">
     <mat-paginator
