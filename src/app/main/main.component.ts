@@ -10,43 +10,78 @@ import { Cat } from '../model/interfaces';
 })
 export class MainComponent implements OnInit {
   public cats: Cat[];
-  pageSizeOptions: number[] = [5, 10, 25, 100];
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
+  public pageNum = 0;
+  public showAllMode: boolean;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     console.log('ON INIT');
-    this.showCats();
   }
 
-  // public editCats(cats: Cat[]): Cat[] {
-  //   console.log('cats in EDIT ', cats);
-  //   const catEdited = cats.map((cat) => {
-  //     if (cat.height > 100) {
-  //       cat.height = 100;
-  //     }
-  //     return cat;
-  //   });
-  //   console.log('catEdited ', catEdited);
-  //   return catEdited;
-  // }
+  public handlePageEvent(e): void {
+    console.log('handlePageEvent');
+    console.log('EVENT ', e);
+    this.pageNum = e.pageIndex;
+    this.showCats(['all', 'all']);
+  }
 
-  public getCats(): any {
+  public getAllCats(): any {
     console.log('getCats');
-    const pageNumber = 0;
+    const pageNumber = this.pageNum;
     const catsOnPage = 10;
     return this.http.get<Cat[]>(
       `https://api.thecatapi.com/v1/images/search?limit=${catsOnPage}&page=${pageNumber}&order=Desc`
     );
   }
 
-  public showCats(): void {
-    console.log('showCats');
-    this.getCats().subscribe((data: Cat[]) => {
-      console.log('DATA ', data);
-      //this.cats = this.editCats(data);
-      this.cats = data;
-    });
+  public getCatsBySelectedBreed(pattern: string): any {
+    console.log('SELECT ', pattern);
+    return this.http.get<Cat[]>(
+      `https://api.thecatapi.com/v1/images/search?breed_ids=${pattern}`
+    );
+  }
+
+  public getCatsByInputBreed(pattern: string): any {
+    console.log('NAME ', pattern);
+    return this.http.get<Cat[]>(
+      `https://api.thecatapi.com/v1/breeds/search?q=${pattern}`
+    );
+  }
+
+  // public showAllCats(onPage: number): void {
+  //   this.getAllCats().subscribe((data: Cat[]) => {
+  //     console.log('DATA ALL', data);
+  //     this.cats = data;
+  //   });
+  // }
+
+  public showCats(pattern: string[]): void {
+    console.log('PATERN ', pattern);
+    if (pattern[1] === 'all') {
+      this.getAllCats().subscribe((data: Cat[]) => {
+        console.log('DATA ALL', data);
+        this.cats = data;
+      });
+      this.showAllMode = true;
+    } else if (pattern[1] === 'select') {
+      this.showAllMode = false;
+      this.getCatsBySelectedBreed(pattern[0]).subscribe((data: Cat[]) => {
+        this.cats = data;
+      });
+    } else {
+      this.showAllMode = false;
+      console.log('NAME ', pattern[1]);
+      this.getCatsByInputBreed(pattern[0]).subscribe((data: any) => {
+        console.log('DATA INPUT  ', data);
+        console.log('data.id ', data[0].id);
+        this.getCatsBySelectedBreed(data[0].id).subscribe((data: Cat[]) => {
+          console.log('DATA INPUT CATS ', data);
+          this.cats = data;
+        });
+      });
+    }
   }
 
   public setPageSizeOptions(setPageSizeOptionsInput: string) {

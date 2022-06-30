@@ -1,28 +1,15 @@
-<!-- <div *ngFor="let cat of cats">
-  <ul>
-    <li>
-      <img src="{{ cat.url }}" />
-    </li>
-  </ul>
-</div> -->
-<app-filter></app-filter>
+<app-filter (pattern)="showCats($event)"></app-filter>
 <mat-grid-list cols="2" rowHeight="2:1">
   <mat-grid-tile *ngFor="let cat of cats">
     <img src="{{ cat.url }}" layout-fill />
   </mat-grid-tile>
 </mat-grid-list>
-<!-- <mat-paginator
-  [length]="100"
-  [pageSize]="10"
-  [pageSizeOptions]="pageSizeOptions"
-  (page)="pageEvent = $event"
-  aria-label="Select page"
->
-</mat-paginator>
-
-<div *ngIf="pageEvent">
-  <h5>Page Change Event Properties</h5>
-  <div>List length: {{ pageEvent.length }}</div>
-  <div>Page size: {{ pageEvent.pageSize }}</div>
-  <div>Page index: {{ pageEvent.pageIndex }}</div>
-</div> -->
+<div *ngIf="showAllMode">
+  <mat-paginator
+    [length]="100"
+    [pageSize]="10"
+    (page)="handlePageEvent($event)"
+    aria-label="Select page"
+  >
+  </mat-paginator>
+</div>

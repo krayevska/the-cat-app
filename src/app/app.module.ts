@@ -12,6 +12,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { FilterComponent } from './filter/filter.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FilterComponent } from './filter/filter.component';
     MatGridListModule,
     MatPaginatorModule,
     MatSelectModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
