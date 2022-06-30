@@ -6,12 +6,23 @@ mat-grid-tile {
   padding: 0 0 70px 0;
 }
 
-img {
-  max-height: 270px;
-  width: auto;
+.cats-list {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-img:hover {
+.cats-list .item {
+  width: calc(25vw - (100vw - 100%) / 4);
+  height: 25vw;
+}
+
+.cats-list .image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cats-list .image:hover {
   cursor: pointer;
   outline: 0.1rem solid;
 }
@@ -22,18 +33,4 @@ img:hover {
 
 .mat-paginator-container {
   height: 20px;
-}
-
-@media only screen and (max-width: 1200px) {
-  img {
-    max-height: 200px;
-    width: auto;
-  }
-}
-
-@media only screen and (max-width: 1000px) {
-  img {
-    max-height: 150px;
-    width: auto;
-  }
 }

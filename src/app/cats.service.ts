@@ -15,7 +15,7 @@ export class CatsService {
   constructor(private http: HttpClient, private store: Store) {}
 
   public getAllCats(): any {
-    const catsOnPage = 10;
+    const catsOnPage = 12;
     return this.http.get<Cat[]>(
       `https://api.thecatapi.com/v1/images/search?limit=${catsOnPage}&page=${this.pageNumber}&order=Desc`
     );
