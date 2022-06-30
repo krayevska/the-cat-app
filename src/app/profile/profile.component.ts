@@ -24,60 +24,49 @@ export class ProfileComponent implements OnInit {
   public catImgUrl: string;
   public breedsData: any;
   public breeds: string[] = [];
+  cat: Cat;
 
   ngOnInit(): void {
-    if (localStorage.getItem('catId')) {
+    if (localStorage.getItem('theCat')) {
       this.route.params.subscribe((params: Params) => {
         this.catId = params['id'];
-        if (localStorage.getItem('catId') === this.catId) {
+        const cat = JSON.parse(localStorage.getItem('theCat'));
+        if (cat.id === this.catId) {
+          this.cat = cat;
+        } else {
+          this.getNewCatData(this.catId);
         }
       });
-      this.catId = localStorage.getItem('catId');
-      this.catImgUrl = localStorage.getItem('catUrl');
-      this.breeds =
-        localStorage.getItem('breeds').length > 0
-          ? localStorage.getItem('breeds').split(',')
-          : [];
     } else {
       this.route.params.subscribe((params: Params) => {
         this.catId = params['id'];
-        console.log('this.catId ', this.catId);
-        this.catsState$.subscribe((data: Cat[] | []) => {
-          console.log('DATA FROM STORE cats', data);
-          this.cats = data;
-          this.getCatData(this.cats);
-        });
+        this.getNewCatData(this.catId);
       });
     }
   }
 
-  public getCatData(cats: Cat[]): void {
-    const cat = cats.find((cat) => cat.id == this.catId);
-    console.log('CAT ', cat);
-    this.catImgUrl = cat.url;
-    this.breedsData = cat.breeds;
-
-    this.breedsData.forEach((breed) => {
-      this.breeds.push(breed.name);
+  public getNewCatData(id: string): void {
+    this.catsState$.subscribe((data: Cat[] | []) => {
+      this.cats = data;
+      this.cat =
+        this.cats.length > 1
+          ? this.cats.find((cat) => cat.id === id)
+          : this.cats[0];
+      this.setCatToLocalStorage(this.cat);
     });
-    this.setCatToLocalStorage();
   }
 
   public doesItHaveBreed(): boolean {
-    return this.breeds.length > 0;
+    return this.cat.breeds && this.cat.breeds.length > 0;
   }
 
   public goBack(): void {
-    localStorage.removeItem('catId');
-    localStorage.removeItem('catUrl');
-    localStorage.removeItem('breeds');
     this.router.navigateByUrl('');
   }
 
-  public setCatToLocalStorage(): void {
-    const breeds = this.breeds.join(',');
-    localStorage.setItem('catUrl', this.catImgUrl);
-    localStorage.setItem('catId', this.catId);
-    localStorage.setItem('breeds', breeds);
+  public setCatToLocalStorage(cat: Cat): void {
+    if (cat) {
+      localStorage.setItem('theCat', JSON.stringify(cat));
+    }
   }
 }

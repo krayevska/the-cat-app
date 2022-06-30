@@ -1,11 +1,11 @@
 <div class="profile-section">
-  <div>
-    <img src="{{ catImgUrl }}" />
+  <div *ngIf="cat">
+    <img src="{{ cat.url }}" />
   </div>
 
   <div *ngIf="doesItHaveBreed()">
-    <div class="breeds-data" *ngFor="let breed of breeds">
-      <p>Breed: {{ breed }}</p>
+    <div class="breeds-data" *ngFor="let breed of cat.breeds">
+      <p>Breed: {{ breed.name }}</p>
     </div>
   </div>
 
