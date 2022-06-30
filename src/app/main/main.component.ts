@@ -29,6 +29,7 @@ export class MainComponent implements OnInit {
     console.log('ON INIT');
     this.catsState$.subscribe((data: Cat[] | []) => {
       console.log('DATA FROM STORE ', data);
+      this.cats = data;
     });
   }
 
@@ -39,65 +40,58 @@ export class MainComponent implements OnInit {
     this.showCats(['all', 'all']);
   }
 
-  public getAllCats(): any {
-    console.log('getCats');
-    const pageNumber = this.pageNum;
-    const catsOnPage = 10;
-    return this.http.get<Cat[]>(
-      `https://api.thecatapi.com/v1/images/search?limit=${catsOnPage}&page=${pageNumber}&order=Desc`
-    );
-  }
-
-  public getCatsBySelectedBreed(pattern: string): any {
-    console.log('SELECT ', pattern);
-    return this.http.get<Cat[]>(
-      `https://api.thecatapi.com/v1/images/search?breed_ids=${pattern}`
-    );
-  }
-
-  public getCatsByInputBreed(pattern: string): any {
-    console.log('NAME ', pattern);
-    return this.http.get<Cat[]>(
-      `https://api.thecatapi.com/v1/breeds/search?q=${pattern}`
-    );
-  }
-
-  // public showAllCats(onPage: number): void {
-  //   this.getAllCats().subscribe((data: Cat[]) => {
-  //     console.log('DATA ALL', data);
-  //     this.cats = data;
-  //   });
+  // public getAllCats(): any {
+  //   console.log('getCats');
+  //   const pageNumber = this.pageNum;
+  //   const catsOnPage = 10;
+  //   return this.http.get<Cat[]>(
+  //     `https://api.thecatapi.com/v1/images/search?limit=${catsOnPage}&page=${pageNumber}&order=Desc`
+  //   );
   // }
 
-  public showCats(pattern: string[]): void {
-    console.log('PATERN ', pattern);
-    if (pattern[1] === 'all') {
-      this.getAllCats().subscribe((data: Cat[]) => {
-        console.log('DATA ALL', data);
-        this.cats = data;
-        this.onSaveCats(this.cats);
-      });
-      this.showAllMode = true;
-    } else if (pattern[1] === 'select') {
-      this.showAllMode = false;
-      this.getCatsBySelectedBreed(pattern[0]).subscribe((data: Cat[]) => {
-        this.cats = data;
-        this.onSaveCats(this.cats);
-      });
-    } else {
-      this.showAllMode = false;
-      console.log('NAME ', pattern[1]);
-      this.getCatsByInputBreed(pattern[0]).subscribe((data: any) => {
-        console.log('DATA INPUT  ', data);
-        console.log('data.id ', data[0].id);
-        this.getCatsBySelectedBreed(data[0].id).subscribe((data: Cat[]) => {
-          console.log('DATA INPUT CATS ', data);
-          this.cats = data;
-          this.onSaveCats(this.cats);
-        });
-      });
-    }
-  }
+  // public getCatsBySelectedBreed(pattern: string): any {
+  //   console.log('SELECT ', pattern);
+  //   return this.http.get<Cat[]>(
+  //     `https://api.thecatapi.com/v1/images/search?breed_ids=${pattern}`
+  //   );
+  // }
+
+  // public getCatsByInputBreed(pattern: string): any {
+  //   console.log('NAME ', pattern);
+  //   return this.http.get<Cat[]>(
+  //     `https://api.thecatapi.com/v1/breeds/search?q=${pattern}`
+  //   );
+  // }
+
+  // public showCats(pattern: string[]): void {
+  //   console.log('PATERN ', pattern);
+  //   if (pattern[1] === 'all') {
+  //     this.getAllCats().subscribe((data: Cat[]) => {
+  //       console.log('DATA ALL', data);
+  //       this.cats = data;
+  //       this.onSaveCats(this.cats);
+  //     });
+  //     this.showAllMode = true;
+  //   } else if (pattern[1] === 'select') {
+  //     this.showAllMode = false;
+  //     this.getCatsBySelectedBreed(pattern[0]).subscribe((data: Cat[]) => {
+  //       this.cats = data;
+  //       this.onSaveCats(this.cats);
+  //     });
+  //   } else {
+  //     this.showAllMode = false;
+  //     console.log('NAME ', pattern[1]);
+  //     this.getCatsByInputBreed(pattern[0]).subscribe((data: any) => {
+  //       console.log('DATA INPUT  ', data);
+  //       console.log('data.id ', data[0].id);
+  //       this.getCatsBySelectedBreed(data[0].id).subscribe((data: Cat[]) => {
+  //         console.log('DATA INPUT CATS ', data);
+  //         this.cats = data;
+  //         this.onSaveCats(this.cats);
+  //       });
+  //     });
+  //   }
+  // }
 
   public setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
@@ -107,7 +101,7 @@ export class MainComponent implements OnInit {
     }
   }
 
-  onSaveCats(cats: Cat[]) {
-    this.store.dispatch(saveCats({ cats }));
-  }
+  // onSaveCats(cats: Cat[]) {
+  //   this.store.dispatch(saveCats({ cats }));
+  // }
 }

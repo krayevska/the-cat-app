@@ -1,6 +1,10 @@
 <div class="filters-section" [ngClass]="{ catsAreHere: areCatsHere }">
   <div class="show-all">
-    <button mat-button (click)="setPattern('all')" class="button-show-all">
+    <button
+      mat-button
+      (click)="getCats(['all', 'all'])"
+      class="button-show-all"
+    >
       Show all Cats
     </button>
   </div>
@@ -11,7 +15,7 @@
     <input type="text" [(ngModel)]="patternFromInput" class="search-input" />
     <button
       mat-button
-      (click)="inputPattern()"
+      (click)="getCats(['name', patternFromInput])"
       class="button-search-by-bread-name"
     >
       Search
@@ -19,7 +23,7 @@
   </div>
   <p>or choose from list of breeds</p>
   <div class="select">
-    <mat-select (selectionChange)="setPattern($event.value)">
+    <mat-select (selectionChange)="handleSelect($event.value)">
       <mat-option *ngFor="let breed of breedsList" [value]="breed.name">
         {{ breed.name }}
       </mat-option>
