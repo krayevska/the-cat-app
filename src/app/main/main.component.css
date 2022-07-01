@@ -37,3 +37,17 @@ mat-grid-tile {
 .mat-paginator-container {
   height: 20px;
 }
+
+@media screen and (max-width: 992px) {
+  .cats-list .item {
+    width: calc(33vw - (100vw - 100%) / 3);
+    height: 33vw;
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .cats-list .item {
+    width: calc(50vw - (100vw - 100%) / 2);
+    height: 50vw;
+  }
+}
