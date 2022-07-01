@@ -1,18 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cat } from './model/interfaces';
-import { Store } from '@ngrx/store';
-import { saveCats, setCatsFree } from './cat.actions';
-import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CatsService {
   private pageNumber = 0;
-  public pageSubject = new Subject<number>();
 
-  constructor(private http: HttpClient, private store: Store) {}
+  constructor(private http: HttpClient) {}
 
   public getAllCats(): any {
     const catsOnPage = 12;
@@ -27,15 +24,17 @@ export class CatsService {
     );
   }
 
-  public getCatsByInputBreed(pattern: string): any {
+  public getCatsByInputBreed(pattern: string): Observable<Cat[]> {
     return this.http.get<Cat[]>(
       `https://api.thecatapi.com/v1/breeds/search?q=${pattern}`
     );
   }
 
-  public setPage(page: number) {
-    console.log('PAGE IN SERVICE ', page);
+  public getAllBreeds(): Observable<any> {
+    return this.http.get<any>('https://api.thecatapi.com/v1/breeds');
+  }
+
+  public setPaginationPage(page: number) {
     this.pageNumber = page;
-    this.pageSubject.next(this.pageNumber);
   }
 }

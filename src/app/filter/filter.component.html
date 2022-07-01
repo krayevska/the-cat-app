@@ -1,10 +1,6 @@
 <div class="filters-section" [ngClass]="{ catsAreHere: areCatsHere }">
   <div class="show-all">
-    <button
-      mat-button
-      (click)="getCats(['all', 'all'])"
-      class="button-show-all"
-    >
+    <button mat-button (click)="getAllCats()" class="button-show-all">
       Show all Cats
     </button>
   </div>
@@ -15,7 +11,7 @@
     <input type="text" [(ngModel)]="patternFromInput" class="search-input" />
     <button
       mat-button
-      (click)="getCats(['name', patternFromInput])"
+      (click)="getCatsByBreedName(patternFromInput)"
       class="button-search-by-bread-name"
     >
       Search
@@ -35,7 +31,4 @@
       Get cats out
     </button>
   </div>
-</div>
-<div *ngIf="noCats">
-  {{ noCats }}
 </div>

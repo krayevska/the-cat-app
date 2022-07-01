@@ -9,13 +9,7 @@ import { Router } from '@angular/router';
 export class AboutComponent implements OnInit {
   constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    // if (localStorage.getItem('catId')) {
-    //   localStorage.removeItem('catId');
-    //   localStorage.removeItem('catUrl');
-    //   localStorage.removeItem('breeds');
-    // }
-  }
+  ngOnInit(): void {}
 
   public goBack(): void {
     this.router.navigateByUrl('');

@@ -4,7 +4,7 @@
   <div *ngIf="showAllMode">
     <mat-paginator
       [length]="100"
-      [pageSize]="12"
+      [pageSize]="catsPerPage"
       (page)="handlePageEvent($event)"
       aria-label="Select page"
     >
@@ -15,15 +15,10 @@
       <img src="{{ cat.url }}" (click)="onCatClick(cat.id)" class="image" />
     </div>
   </div>
-  <!-- <mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let cat of cats">
-      <img src="{{ cat.url }}" layout-fill (click)="onCatClick(cat.id)" />
-    </mat-grid-tile>
-  </mat-grid-list> -->
   <div *ngIf="showAllMode">
     <mat-paginator
       [length]="100"
-      [pageSize]="12"
+      [pageSize]="catsPerPage"
       (page)="handlePageEvent($event)"
       aria-label="Select page"
     >

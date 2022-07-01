@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Cat } from '../model/interfaces';
-import { saveCats, setCatsFree } from '../cat.actions';
 import { Store } from '@ngrx/store';
 import { CatsService } from '../cats.service';
 import { Router } from '@angular/router';
@@ -14,14 +12,13 @@ import { Router } from '@angular/router';
 })
 export class MainComponent implements OnInit {
   public cats: Cat[];
-  public pageSizeOptions: number[] = [5, 10, 25, 100];
+  public catsPerPage = 12;
   public pageNum = 0;
   public showAllMode = false;
 
   catsState$: Observable<Cat[]>;
 
   constructor(
-    private http: HttpClient,
     private store: Store<{ catsState: Cat[] }>,
     private catsService: CatsService,
     private router: Router
@@ -38,7 +35,7 @@ export class MainComponent implements OnInit {
 
   public handlePageEvent(e): void {
     this.pageNum = e.pageIndex;
-    this.catsService.setPage(this.pageNum);
+    this.catsService.setPaginationPage(this.pageNum);
   }
 
   public onCatClick(id: string): void {
