@@ -1,4 +1,21 @@
 # TheCatApp
+**Using this App you can**:
+
+1 Upload unlimited amount of Cats (pagination for your convenience);
+
+2 Upload Cat of specific breed, either by choosing from list or enter
+breed's name yourself;
+
+3 Clear page from Cats;
+
+4 Go to Cat's profile for more details;
+
+5 You can safely reload page with Cat's profile - data will be saved to
+local storage;
+
+6 You can go back to all Cats;
+
+**Tools used:** Angular, Angular Material (mat-select, mat-button, mat-paginator), Reactive Forms (input), RxJS (Observables) and NgRX (storing and sharing data).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.15.
 
